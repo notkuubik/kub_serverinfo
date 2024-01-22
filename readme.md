@@ -1,6 +1,6 @@
 BY DEFAULT THIS SCRIPT USES CONNECTQUEUE
 
-![kub_serverinfo](https://github.com/notkuubik/kub_serverinfo/assets/157408598/8575783f-6134-420c-88df-7750f5ffd75a)
+![kub_serverinfo](https://github.com/notkuubik/kub_serverinfo/assets/157408598/67cdde4c-7a88-4c2d-9b6d-c6eca5c9b4a3)
 
 Tebex store - https://notkuubik.tebex.io/
 
