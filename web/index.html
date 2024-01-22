@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>kub_serverinfo</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/output.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+</head>
+
+<body>
+
+    <div x-data="{isVisible: false, info: {players: 0, maxPlayers: 0, time: '0/0/0000 00:00:00', id: 0, queue: 0}, translations: []}"
+        x-show="isVisible" @message.window="
+     if ($event.data.action == 'setServerInfoVisibility') {
+        isVisible = $event.data.status;
+
+        if (isVisible) {
+            info = $event.data.info;
+        }
+    } else if ($event.data.action == 'setLocale'){
+        translations = $event.data.data;
+    }
+    " aria-live="assertive" class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-12">
+        <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
+            <div x-show="isVisible" x-transition:enter="transform ease-out duration-300 transition"
+                x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
+                x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0" :class="{'max-w-md': info.queue > 0, 'max-w-sm': info.queue == 0}"
+                class="pointer-events-auto w-full overflow-hidden rounded-lg bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5">
+                <div class="p-4 pb-2">
+                    <div class="grid grid-cols-10">
+                        <div class="flex items-start col-span-8">
+                            <div class="flex-shrink-0">
+                                <!-- Heroicon name: outline/check-circle -->
+                                <svg class="h-6 w-6 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                                </svg>
+                            </div>
+                            <div class="ml-3 w-0 flex-1 pt-0.5">
+                                <p class="text-sm font-medium text-gray-300">
+                                    <span x-text="info.players"></span>
+                                    <span x-show="info.queue > 0" class="ml-2 bg-red-700 py-0.5 px-2 text-xs rounded">
+                                        <span x-text="translations.Queue + ' ' + info.queue"></span></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-span-2 text-gray-300 text-center">
+                            <span class="rounded bg-gray-700 py-0.5 px-2 text-xs font-medium">ID: <span
+                                    x-text="info.id"></span></span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap justify-between items-center gap-0.5 text-xs mt-3 text-gray-500">
+                        <span x-text="translations.ServerName">
+                            Server name not set
+                        </span>
+
+                        <span class="flex items-center justify-between">
+                            <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="px-1" x-text="info.time"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
